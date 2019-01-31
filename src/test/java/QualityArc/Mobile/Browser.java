@@ -23,11 +23,11 @@ public class Browser extends Base {
 
 	@Test
 	public void loginTest() throws MalformedURLException {
-		AndroidDriver<AndroidElement> driver = capabilities();
-		driver.get("https://orangehrm-demo-6x.orangehrmlive.com/");
-		driver.findElementByName("txtUsername").sendKeys("Admin");
-		driver.findElementByName("txtPassword").sendKeys("admin123");
-		driver.findElementById("btnLogin").click();
+		//	AndroidDriver<AndroidElement> driver = capabilities();
+	//		driver.get("https://orangehrm-demo-6x.orangehrmlive.com/");
+		//driver.findElementByName("txtUsername").sendKeys("Admin");
+		//driver.findElementByName("txtPassword").sendKeys("admin123");
+		//	driver.findElementById("btnLogin").click();
 
 	}
 
