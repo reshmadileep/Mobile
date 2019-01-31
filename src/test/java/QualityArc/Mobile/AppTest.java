@@ -8,7 +8,7 @@ import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.AndroidElement;
 import utils.Base;
 
-public class App extends Base {
+public class AppTest extends Base {
 
 	public AndroidDriver<AndroidElement> driver;
 
