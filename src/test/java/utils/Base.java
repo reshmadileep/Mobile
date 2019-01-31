@@ -15,6 +15,7 @@ import io.appium.java_client.android.AndroidElement;
 import io.appium.java_client.remote.MobileCapabilityType;
 
 public class Base {
+
 	public static AndroidDriver<AndroidElement> driver;
 	public static DesiredCapabilities capabilities;
 
@@ -22,9 +23,8 @@ public class Base {
 
 // TODO Auto-generated method stub
 
-		File appDir = new File("src");
-		File app = new File(appDir, "ApiDemos-debug.apk");
-
+		File appDir;
+		File app;
 		capabilities = new DesiredCapabilities();
 		Properties properties;
 		String deviceos;
@@ -46,7 +46,9 @@ public class Base {
 		// url = properties.getProperty("URL");
 		executeon = properties.getProperty("Executeon");
 
-		if (deviceos.equalsIgnoreCase("android")) {
+		System.out.println(deviceos + "||" + executeon + "||" + browser);
+
+		if (deviceos.equalsIgnoreCase("Android")) {
 			capabilities.setCapability(MobileCapabilityType.DEVICE_NAME, "Android Device");
 			if (executeon.equalsIgnoreCase("browser")) {
 				if (browser.equalsIgnoreCase("chrome")) {
@@ -60,6 +62,8 @@ public class Base {
 				}
 
 			} else {
+				appDir = new File("src");
+				app = new File(appDir, "ApiDemos-debug.apk");
 				capabilities.setCapability(MobileCapabilityType.APP, app.getAbsolutePath());
 
 			}
