@@ -1,7 +1,12 @@
 package utils;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Properties;
 
 import org.openqa.selenium.remote.DesiredCapabilities;
 
@@ -16,17 +21,50 @@ public class Base {
 	public static AndroidDriver<AndroidElement> capabilities() throws MalformedURLException {
 
 // TODO Auto-generated method stub
-		/*
-		 * File appDir = new File("src"); File app = new File(appDir,
-		 * "ApiDemos-debug.apk");
-		 */
+
+		File appDir = new File("src");
+		File app = new File(appDir, "ApiDemos-debug.apk");
+
 		capabilities = new DesiredCapabilities();
+		Properties properties;
+		String deviceos;
+		String executeon;
+		String browser;
+		// String url;
+		properties = new Properties();
 
-		capabilities.setCapability(MobileCapabilityType.DEVICE_NAME, "Android Device");
+		try {
+			properties.load(new FileInputStream(new File("./src/test/resources/config/global.properties")));
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 
-		capabilities.setCapability(MobileCapabilityType.BROWSER_NAME, "Chrome");
+		deviceos = properties.getProperty("DeviceOS");
+		browser = properties.getProperty("Browser");
+		// url = properties.getProperty("URL");
+		executeon = properties.getProperty("Executeon");
 
-		// capabilities.setCapability(MobileCapabilityType.APP, app.getAbsolutePath());
+		if (deviceos.equalsIgnoreCase("android")) {
+			capabilities.setCapability(MobileCapabilityType.DEVICE_NAME, "Android Device");
+			if (executeon.equalsIgnoreCase("browser")) {
+				if (browser.equalsIgnoreCase("chrome")) {
+					capabilities.setCapability(MobileCapabilityType.BROWSER_NAME, "Chrome");
+
+				} else if (browser.equalsIgnoreCase("firefox")) {
+					capabilities.setCapability(MobileCapabilityType.BROWSER_NAME, "Firefox");
+
+				} else {
+					capabilities.setCapability(MobileCapabilityType.BROWSER_NAME, "IE");
+				}
+
+			} else {
+				capabilities.setCapability(MobileCapabilityType.APP, app.getAbsolutePath());
+
+			}
+		}
+
 		driver = new AndroidDriver<>(new URL("http://127.0.0.1:4723/wd/hub"), capabilities);
 
 		return driver;
