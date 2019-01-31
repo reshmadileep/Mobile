@@ -3,7 +3,7 @@
 <suite name="Suite">
   <test thread-count="5" name="Test">
     <classes>
-      <class name="QualityArc.Mobile.Browser"/>
+      <class name="QualityArc.Mobile.App"/>
     </classes>
   </test> <!-- Test -->
 </suite> <!-- Suite -->

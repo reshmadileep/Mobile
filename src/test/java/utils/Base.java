@@ -46,7 +46,7 @@ public class Base {
 		// url = properties.getProperty("URL");
 		executeon = properties.getProperty("Executeon");
 
-		System.out.println(deviceos + "||" + executeon + "||" + browser);
+		// System.out.println(deviceos + "||" + executeon + "||" + browser);
 
 		if (deviceos.equalsIgnoreCase("Android")) {
 			capabilities.setCapability(MobileCapabilityType.DEVICE_NAME, "Android Device");
@@ -70,7 +70,6 @@ public class Base {
 		}
 
 		driver = new AndroidDriver<>(new URL("http://127.0.0.1:4723/wd/hub"), capabilities);
-
 		return driver;
 	}
 

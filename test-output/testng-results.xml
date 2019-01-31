@@ -2,16 +2,16 @@
 <testng-results ignored="0" total="1" passed="1" failed="0" skipped="0">
   <reporter-output>
   </reporter-output>
-  <suite started-at="2019-01-31T03:32:00Z" name="Suite" finished-at="2019-01-31T03:32:45Z" duration-ms="45499">
+  <suite started-at="2019-01-31T05:53:58Z" name="Suite" finished-at="2019-01-31T05:54:14Z" duration-ms="15518">
     <groups>
     </groups>
-    <test started-at="2019-01-31T03:32:00Z" name="Test" finished-at="2019-01-31T03:32:45Z" duration-ms="45499">
-      <class name="QualityArc.Mobile.Browser">
-        <test-method signature="loginTest()[pri:0, instance:QualityArc.Mobile.Browser@625732]" started-at="2019-01-31T03:32:00Z" name="loginTest" finished-at="2019-01-31T03:32:45Z" duration-ms="45458" status="PASS">
+    <test started-at="2019-01-31T05:53:58Z" name="Test" finished-at="2019-01-31T05:54:14Z" duration-ms="15518">
+      <class name="QualityArc.Mobile.App">
+        <test-method signature="accessibility()[pri:0, instance:QualityArc.Mobile.App@625732]" started-at="2019-01-31T05:53:58Z" name="accessibility" finished-at="2019-01-31T05:54:14Z" duration-ms="15476" status="PASS">
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- loginTest -->
-      </class> <!-- QualityArc.Mobile.Browser -->
+        </test-method> <!-- accessibility -->
+      </class> <!-- QualityArc.Mobile.App -->
     </test> <!-- Test -->
   </suite> <!-- Suite -->
 </testng-results>
