@@ -19,13 +19,13 @@ public class Browser extends Base {
 //	}
 //	
 	
-	@Test
-	public void startTest() throws MalformedURLException {
+	    @Test
+	    public void loginTest() throws MalformedURLException {
 		AndroidDriver<AndroidElement> driver = capabilities();
-		driver.get("http://facebook.com");
-		driver.findElementByXPath("//*[@id='u_0_1']/div[1]/div/input").sendKeys("qwerty");
-		driver.findElementByName("pass").sendKeys("12345");
-		driver.findElementByXPath("//button[@value='Log In']").click();
+		driver.get("https://orangehrm-demo-6x.orangehrmlive.com/");	
+		driver.findElementByName("txtUsername").sendKeys("Admin");		
+		driver.findElementByName("txtPassword").sendKeys("admin123");
+		driver.findElementById("btnLogin").click();
 		
 		
 	}
