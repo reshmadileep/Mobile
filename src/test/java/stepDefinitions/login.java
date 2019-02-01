@@ -12,6 +12,7 @@ public class login {
 	public AndroidDriver<AndroidElement> driver;
 	public HomePage homePage;
 
+	@SuppressWarnings("unchecked")
 	public login(World world) {
 		this.world = world;
 		driver = (AndroidDriver<AndroidElement>) this.world.context.get("driver");
