@@ -10,13 +10,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 
-import org.openqa.selenium.OutputType;
-import org.openqa.selenium.TakesScreenshot;
-import org.openqa.selenium.remote.Augmenter;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
-import cucumber.api.Scenario;
-import cucumber.api.java.After;
 import cucumber.api.java.Before;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.AndroidElement;
@@ -39,7 +34,7 @@ public class Hooks {
 	@Before(order = 0)
 	public void doSetupBeforeExecution() throws MalformedURLException {
 		File appDir, app;
-		String deviceos, executeon, browser;
+		String deviceos, executeon, browser, url;
 		DesiredCapabilities capabilities = new DesiredCapabilities();
 		properties = new Properties();
 
@@ -53,7 +48,7 @@ public class Hooks {
 
 		deviceos = properties.getProperty("DeviceOS");
 		browser = properties.getProperty("Browser");
-		// url = properties.getProperty("URL");
+		url = properties.getProperty("URL");
 		executeon = properties.getProperty("Executeon");
 
 		if (deviceos.equalsIgnoreCase("Android")) {
@@ -86,14 +81,12 @@ public class Hooks {
 		world.context.put("driver", driver);
 	}
 
-	@After
-	public void doCleanupAfterExecution(Scenario scenario) {
-		if (scenario.isFailed()) {
-			TakesScreenshot browser = (TakesScreenshot) new Augmenter().augment(driver);
-			final byte[] screenshot = browser.getScreenshotAs(OutputType.BYTES);
-			scenario.embed(screenshot, "image/png");
-			scenario.write("URL: " + driver.getCurrentUrl());
-		}
-		driver.close();
-	}
+	/*
+	 * @After public void doCleanupAfterExecution(Scenario scenario) { if
+	 * (scenario.isFailed()) { TakesScreenshot browser = (TakesScreenshot) new
+	 * Augmenter().augment(driver); final byte[] screenshot =
+	 * browser.getScreenshotAs(OutputType.BYTES); scenario.embed(screenshot,
+	 * "image/png"); scenario.write("URL: " + driver.getCurrentUrl()); }
+	 * driver.close(); }
+	 */
 }

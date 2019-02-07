@@ -15,24 +15,18 @@ public class Leave {
 	public AndroidDriver<AndroidElement> driver;
 	private AssignLeave assignLeavePage;
 	public HomePage homePage;
-	
+
 	@SuppressWarnings("unchecked")
 	public Leave(World world) {
 		this.world = world;
-		driver = (AndroidDriver) this.world.context.get("driver");
-		assignLeavePage = new AssignLeave(driver);
+		driver = (AndroidDriver<AndroidElement>) this.world.context.get("driver");
+		assignLeavePage = new AssignLeave(world);
 	}
 
 	@Given("User is on assign leave page")
 	public void Navigate_to_assign_leave_page() {
-		
-		driver.get("https://orangehrm-demo-6x.orangehrmlive.com/");
-		homePage=new HomePage(driver);
-		homePage.enterUsername("Admin");
-		homePage.enterPassword("admin123");
-		homePage.clickLoginBtn();
-		
-	//	assignLeavePage.clickLeave();
+
+		// assignLeavePage.clickLeave();
 		assignLeavePage.scrollPageDown();
 		assignLeavePage.clickAssignLeave();
 	}
@@ -43,11 +37,9 @@ public class Leave {
 		assignLeavePage.enterEmployeeName(employeeName);
 		assignLeavePage.selectLeaveType(selection);
 		assignLeavePage.enterFromDate(fromDate);
-		// assignLeavePage.enterToDate(toDate);
 		assignLeavePage.enterComment(comment);
 		assignLeavePage.applyLeave();
 		assignLeavePage.balancepopup();
-		assignLeavePage.overlapleave();
 
 	}
 
@@ -57,7 +49,7 @@ public class Leave {
 		assignLeavePage.scrollPageDown();
 		assignLeavePage.clickLeaveList();
 		assignLeavePage.enterLeaveListFromDate(FromleaveDate);
-		assignLeavePage.enterLeaveListToDate(ToleaveDate);
+		// assignLeavePage.enterLeaveListToDate(ToleaveDate);
 		assignLeavePage.enterEmployeeNameLeaveList(employeeName);
 		assignLeavePage.checkCheckbox();
 		assignLeavePage.clickCheckLeaveSubmit();

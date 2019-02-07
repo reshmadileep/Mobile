@@ -4,10 +4,12 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import io.appium.java_client.android.AndroidDriver;
+import io.appium.java_client.android.AndroidElement;
+import stepDefinitions.World;
 import utils.ReusableFunctions;
 
 public class AssignLeave {
@@ -81,10 +83,12 @@ public class AssignLeave {
 	private ReusableFunctions reusablefunctions;
 	private WebDriver driver;
 
-	public AssignLeave(WebDriver driver) {
-		this.driver = driver;
-		PageFactory.initElements(driver, this);
-		reusablefunctions = new utils.ReusableFunctions(driver);
+	private World world;
+
+	public AssignLeave(World world) {
+		this.world = world;
+		driver = (AndroidDriver<AndroidElement>) this.world.context.get("driver");
+
 	}
 
 	public AssignLeave checkDashboard() {
@@ -107,8 +111,8 @@ public class AssignLeave {
 	}
 
 	public AssignLeave clickAssignLeave() {
-		//WebDriverWait wait = new WebDriverWait(driver, 30);
-		//wait.until(ExpectedConditions.visibilityOf(lnkAssignLeave));
+		// WebDriverWait wait = new WebDriverWait(driver, 30);
+		// wait.until(ExpectedConditions.visibilityOf(lnkAssignLeave));
 		lnkAssignLeave.click();
 		return this;
 	}
@@ -178,8 +182,6 @@ public class AssignLeave {
 		return this;
 	}
 
-	
-	
 	public AssignLeave overlapleave() {
 		WebDriverWait wait = new WebDriverWait(driver, 30);
 		wait.until(ExpectedConditions.visibilityOf(popupCancel));
@@ -251,9 +253,8 @@ public class AssignLeave {
 	public void verifyRecords(String employeeName, String date) {
 		WebDriverWait wait = new WebDriverWait(driver, 30);
 		wait.until(ExpectedConditions.visibilityOf(updateCheck));
-		
-		if ((updateCheck.getText().contains(employeeName))
-				&& (updateCheck.getText().toString().contains(date)))
+
+		if ((updateCheck.getText().contains(employeeName)) && (updateCheck.getText().toString().contains(date)))
 			System.out.println("Employee Leave has been updated");
 		else
 			System.out.println("Employee Leave has not been updated");

@@ -12,10 +12,10 @@ import net.masterthought.cucumber.Configuration;
 import net.masterthought.cucumber.ReportBuilder;
 import net.masterthought.cucumber.Reportable;
 
-@CucumberOptions(features = "src/test/resources/features/", glue = { "stepDefinitions" }, tags = {
-		"not (@inProgress or @manualTest or @todoDev)" }, plugin = { "pretty",
+@CucumberOptions(features = "src/test/resources/features/AndroidAppWIFISettings.feature", glue = {
+		"stepDefinitions" }, tags = { "not (@inProgress or @manualTest or @todoDev)" }, plugin = { "pretty",
 				"json:target/cucumber-reports/Cucumber.json",
-				"html:target/cucumber-reports" }, monochrome = false, dryRun = false, strict = false)
+				"html:target/cucumber-reports" }, monochrome = true, dryRun = false, strict = false)
 public class testRunner extends AbstractTestNGCucumberTests {
 	@AfterSuite
 	public static void writeCucumberHtmlReport() {

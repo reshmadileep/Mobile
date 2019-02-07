@@ -19,18 +19,20 @@ public class login {
 		homePage = new HomePage(driver);
 	}
 
+	String url = (String) this.world.context.get("URL");
+
 	@Given("I as a admin user navigate to Home page")
 
 	public void i_as_a_admin_user_navigate_to_Home_page() {
 		// Write code here that turns the phrase above into concrete actions
-		driver.get("https://orangehrm-demo-6x.orangehrmlive.com/");
+		driver.get(url);
 
 	}
 
 	@When("I try to login with username {string} and password {string}")
 	public void i_try_to_login_with_username_and_password(String string, String string2) {
 		// Write code here that turns the phrase above into concrete actions
-
+		driver.get(url);
 		homePage.enterUsername("Admin");
 		homePage.enterPassword("admin123");
 		homePage.clickLoginBtn();

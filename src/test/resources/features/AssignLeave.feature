@@ -1,7 +1,7 @@
 Feature: Assign Leave Feature
     Verify if user is able to assign leave
 
-  
+  	@adminUserLoggedIn
     Scenario Outline: Able to assign leave
         Given User is on assign leave page
         When User Applies leave with details "<Employee Name>","<Leave Type>","<From Date>","<To Date>","<Comments>"
