@@ -9,6 +9,7 @@ import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
+import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.DesiredCapabilities;
@@ -75,6 +76,7 @@ public class Hooks {
 			driver = new IOSDriver<>(new URL("http://127.0.0.1:4723/wd/hub"), capabilities);
 		}
 
+		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 		HashMap<String, String> map = new HashMap<String, String>();
 		for (Map.Entry<Object, Object> entry : properties.entrySet()) {
 			map.put((String) entry.getKey(), (String) entry.getValue());

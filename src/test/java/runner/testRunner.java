@@ -12,7 +12,7 @@ import net.masterthought.cucumber.Configuration;
 import net.masterthought.cucumber.ReportBuilder;
 import net.masterthought.cucumber.Reportable;
 
-@CucumberOptions(features = "src/test/resources/features/AndroidAppWIFISettings.feature", glue = {
+@CucumberOptions(features = "src/test/resources/features/AndroidGestures.feature", glue = {
 		"stepDefinitions" }, tags = { "not (@inProgress or @manualTest or @todoDev)" }, plugin = { "pretty",
 				"json:target/cucumber-reports/Cucumber.json",
 				"html:target/cucumber-reports" }, monochrome = true, dryRun = false, strict = false)
