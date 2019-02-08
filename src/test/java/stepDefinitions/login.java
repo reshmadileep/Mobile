@@ -1,21 +1,22 @@
 package stepDefinitions;
 
+import org.openqa.selenium.WebElement;
+
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
-import io.appium.java_client.android.AndroidDriver;
-import io.appium.java_client.android.AndroidElement;
+import io.appium.java_client.AppiumDriver;
 import pages.HomePage;
 
 public class login {
 	public World world;
-	public AndroidDriver<AndroidElement> driver;
+	public AppiumDriver<WebElement> driver;
 	public HomePage homePage;
 
 	@SuppressWarnings("unchecked")
 	public login(World world) {
 		this.world = world;
-		driver = (AndroidDriver<AndroidElement>) this.world.context.get("driver");
+		driver = (AppiumDriver<WebElement>) this.world.context.get("driver");
 		homePage = new HomePage(driver);
 	}
 

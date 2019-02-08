@@ -1,19 +1,20 @@
 package stepDefinitions.hooks;
 
+import org.openqa.selenium.WebElement;
+
 import cucumber.api.java.Before;
-import io.appium.java_client.android.AndroidDriver;
-import io.appium.java_client.android.AndroidElement;
+import io.appium.java_client.AppiumDriver;
 import pages.HomePage;
 import stepDefinitions.World;
 
 public class ScenarioHooks {
 	private World world;
-	private AndroidDriver<AndroidElement> driver;
+	private AppiumDriver<WebElement> driver;
 
 	@SuppressWarnings("unchecked")
 	public ScenarioHooks(World world) {
 		this.world = world;
-		driver = (AndroidDriver<AndroidElement>) this.world.context.get("driver");
+		driver = (AppiumDriver<WebElement>) this.world.context.get("driver");
 	}
 
 	@Before("@adminUserLoggedIn")

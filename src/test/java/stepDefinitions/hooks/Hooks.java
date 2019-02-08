@@ -10,11 +10,13 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
 import cucumber.api.java.Before;
+import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.android.AndroidDriver;
-import io.appium.java_client.android.AndroidElement;
+import io.appium.java_client.ios.IOSDriver;
 import io.appium.java_client.remote.MobileCapabilityType;
 import stepDefinitions.World;
 
@@ -22,7 +24,7 @@ public class Hooks {
 	private World world;
 	private String testEnv = "dev";
 	private Properties properties;
-	private AndroidDriver<AndroidElement> driver;
+	private AppiumDriver<WebElement> driver;
 
 	public Hooks(World world) {
 		this.world = world;
@@ -51,26 +53,27 @@ public class Hooks {
 		url = properties.getProperty("URL");
 		executeon = properties.getProperty("Executeon");
 
-		if (deviceos.equalsIgnoreCase("Android")) {
-			capabilities.setCapability(MobileCapabilityType.DEVICE_NAME, "Android Device");
-			if (executeon.equalsIgnoreCase("browser")) {
-				if (browser.equalsIgnoreCase("chrome")) {
-					capabilities.setCapability(MobileCapabilityType.BROWSER_NAME, "Chrome");
+		if (executeon.equalsIgnoreCase("browser")) {
+			capabilities.setCapability(MobileCapabilityType.BROWSER_NAME, "Chrome");
 
-				} else if (browser.equalsIgnoreCase("firefox")) {
+		} else {
+			appDir = new File("src");
+			app = new File(appDir, "ApiDemos-debug.apk");
+			capabilities.setCapability(MobileCapabilityType.APP, app.getAbsolutePath());
 
-				} else {
-				}
-
-			} else {
-				appDir = new File("src");
-				app = new File(appDir, "ApiDemos-debug.apk");
-				capabilities.setCapability(MobileCapabilityType.APP, app.getAbsolutePath());
-
-			}
 		}
 
-		driver = new AndroidDriver<>(new URL("http://127.0.0.1:4723/wd/hub"), capabilities);
+		if (deviceos.equalsIgnoreCase("Android")) {
+			capabilities.setCapability("platformName", "Android");
+			capabilities.setCapability(MobileCapabilityType.DEVICE_NAME, "Android Emulator");
+			// caps.setCapability("platformVersion", "6.0");
+			driver = new AndroidDriver<>(new URL("http://127.0.0.1:4723/wd/hub"), capabilities);
+		} else {
+			capabilities.setCapability(MobileCapabilityType.DEVICE_NAME, "iPhone Simulator");
+			capabilities.setCapability("platformName", "iOS");
+			// caps.setCapability("platformVersion", "6.0");
+			driver = new IOSDriver<>(new URL("http://127.0.0.1:4723/wd/hub"), capabilities);
+		}
 
 		HashMap<String, String> map = new HashMap<String, String>();
 		for (Map.Entry<Object, Object> entry : properties.entrySet()) {

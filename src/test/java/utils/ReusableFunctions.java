@@ -1,41 +1,29 @@
 package utils;
 
-import java.util.List;
+import static io.appium.java_client.touch.LongPressOptions.longPressOptions;
+import static io.appium.java_client.touch.TapOptions.tapOptions;
+import static io.appium.java_client.touch.offset.ElementOption.element;
+import static java.time.Duration.ofSeconds;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
+
+import io.appium.java_client.AppiumDriver;
+import io.appium.java_client.TouchAction;
+import io.appium.java_client.android.AndroidDriver;
+import io.appium.java_client.android.nativekey.AndroidKey;
+import io.appium.java_client.android.nativekey.KeyEvent;
 
 public class ReusableFunctions {
 
-	private WebDriver driver;
-	private int waitime = 10;
-	private WebDriverWait wdriver;
+	private AppiumDriver<WebElement> driver;
+	private TouchAction taction;
 
-	public ReusableFunctions(WebDriver driver) {
+	public ReusableFunctions(AppiumDriver<WebElement> driver) {
 		this.driver = driver;
-	}
-
-	public List<WebElement> findelements(By locator, int waittime) {
-		wdriver = new WebDriverWait(driver, waittime);
-
-		try {
-			// TODO: Fix the below line
-			wdriver.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(locator));
-			return driver.findElements(locator);
-		} catch (Exception e) {
-			// System.out.println(elementname + " is not identified");
-			return null;
-		}
-	}
-
-	public List<WebElement> findelements(By locator) {
-		return findelements(locator, waitime);
+		taction = new TouchAction(driver);
 	}
 
 	public void input(WebElement element, String value) {
@@ -85,5 +73,33 @@ public class ReusableFunctions {
 	}
 
 	/* Mobile Gestures */
+
+	public void tapelement(WebElement welement) {
+		taction.tap(tapOptions().withElement(element(welement))).perform();
+	}
+
+	public void longpress(WebElement welement) {
+		taction.longPress(longPressOptions().withElement(element(welement)).withDuration(ofSeconds(2))).release()
+				.perform();
+	}
+
+	public void swipe(WebElement first, WebElement second) {
+		taction.longPress(longPressOptions().withElement(element(first)).withDuration(ofSeconds(2)))
+				.moveTo(element(second)).release().perform();
+	}
+
+	public void androidscrollto(String text) {
+		// check this function - supposed to use findbyandroiduiautomator
+		driver.findElementsByAccessibilityId("new UIScrollable(new UISelector()).scrollIntoView(text(\"text\")))");
+
+	}
+
+	public void draganddrop(WebElement source, WebElement destination) {
+		taction.longPress(element(source)).moveTo(element(destination)).release().perform();
+	}
+
+	public void clickmobilebackbutton() {
+		((AndroidDriver<WebElement>) driver).pressKey(new KeyEvent(AndroidKey.BACK));
+	}
 
 }

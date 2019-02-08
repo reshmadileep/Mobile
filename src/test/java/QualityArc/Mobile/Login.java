@@ -2,18 +2,18 @@ package QualityArc.Mobile;
 
 import java.net.MalformedURLException;
 
+import org.openqa.selenium.WebElement;
 import org.testng.annotations.Test;
 
-import io.appium.java_client.android.AndroidDriver;
-import io.appium.java_client.android.AndroidElement;
+import io.appium.java_client.AppiumDriver;
 import pages.HomePage;
 
 public class Login {
 
-	private AndroidDriver<AndroidElement> driver;
+	private AppiumDriver<WebElement> driver;
 	private HomePage homePage;
 
-	public Login(AndroidDriver<AndroidElement> driver) {
+	public Login(AppiumDriver<WebElement> driver) {
 
 		this.driver = driver;
 

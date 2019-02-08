@@ -12,7 +12,7 @@ public class APIDemo {
 	@AndroidFindBy(xpath = "//android.widget.TextView[@text='Preference']")
 	public WebElement preference;
 
-	public APIDemo(AppiumDriver<?> driver) {
+	public APIDemo(AppiumDriver<WebElement> driver) {
 		PageFactory.initElements(new AppiumFieldDecorator(driver), this);
 	}
 
