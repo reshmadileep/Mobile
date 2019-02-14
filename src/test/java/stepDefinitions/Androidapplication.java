@@ -53,12 +53,14 @@ public class Androidapplication {
 
 	@When("^I try to update the WIFI settings$")
 	public void i_try_to_update_the_wifi_settings_with_something() {
-		preferencedependenciesscreen.enterwifisetting("Value");
+		preferencedependenciesscreen.enterwifisetting(map.get("WIFIValue"));
 		preferencedependenciesscreen.savewifisetting();
 	}
 
 	@Then("^I am able to save it succesfully$")
 	public void i_am_able_to_save_it_succesfully() {
+		preferencedependenciesscreen.clickwifisetting();
+		// value from app verify it with mapvalue
 	}
 
 	@Given("^I am on the Custom Adapter screen$")
