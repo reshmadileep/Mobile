@@ -11,9 +11,14 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.remote.Augmenter;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
+import cucumber.api.Scenario;
+import cucumber.api.java.After;
 import cucumber.api.java.Before;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.android.AndroidDriver;
@@ -26,6 +31,8 @@ public class Hooks {
 	private String testEnv = "dev";
 	private Properties properties;
 	private AppiumDriver<WebElement> driver;
+	String deviceos, executeon, browser, url;
+	DesiredCapabilities capabilities;
 
 	public Hooks(World world) {
 		this.world = world;
@@ -37,9 +44,9 @@ public class Hooks {
 	@Before(order = 0)
 	public void doSetupBeforeExecution() throws MalformedURLException {
 		File appDir, app;
-		String deviceos, executeon, browser, url;
-		DesiredCapabilities capabilities = new DesiredCapabilities();
+		capabilities = new DesiredCapabilities();
 		properties = new Properties();
+		String projectPath = System.getProperty("user.dir");
 
 		try {
 			properties.load(new FileInputStream(new File("./src/test/resources/config/global.properties")));
@@ -56,12 +63,13 @@ public class Hooks {
 
 		if (executeon.equalsIgnoreCase("browser")) {
 			capabilities.setCapability(MobileCapabilityType.BROWSER_NAME, "Chrome");
+			capabilities.setCapability("chromedriverExecutable",
+					projectPath + "\\src\\test\\resources\\drivers\\geckodriver.exe");
 
 		} else {
 			appDir = new File("src");
 			app = new File(appDir, "ApiDemos-debug.apk");
 			capabilities.setCapability(MobileCapabilityType.APP, app.getAbsolutePath());
-
 		}
 
 		if (deviceos.equalsIgnoreCase("Android")) {
@@ -86,12 +94,22 @@ public class Hooks {
 		world.context.put("driver", driver);
 	}
 
-	/*
-	 * @After public void doCleanupAfterExecution(Scenario scenario) { if
-	 * (scenario.isFailed()) { TakesScreenshot browser = (TakesScreenshot) new
-	 * Augmenter().augment(driver); final byte[] screenshot =
-	 * browser.getScreenshotAs(OutputType.BYTES); scenario.embed(screenshot,
-	 * "image/png"); scenario.write("URL: " + driver.getCurrentUrl()); }
-	 * driver.close(); }
-	 */
+	@After
+	public void doCleanupAfterExecution(Scenario scenario) {
+		if (scenario.isFailed()) {
+			TakesScreenshot screenshoti = (TakesScreenshot) new Augmenter().augment(driver);
+			final byte[] screenshot = screenshoti.getScreenshotAs(OutputType.BYTES);
+			scenario.embed(screenshot, "image/png");
+			scenario.write("URL: " + driver.getCurrentUrl());
+		}
+
+		if (executeon.equalsIgnoreCase("browser")) {
+			driver.close();
+
+		} else {
+			driver.closeApp();
+		}
+
+	}
+
 }

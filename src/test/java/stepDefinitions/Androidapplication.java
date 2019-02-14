@@ -40,7 +40,7 @@ public class Androidapplication {
 	}
 
 	@Given("^I am on the WIFI settings screen$")
-	public void i_am_on_the_wifi_settings_screen() throws Throwable {
+	public void i_am_on_the_wifi_settings_screen() {
 		apidemoscreen.clickpreference();
 		preferencescreen.clickpreferencedependencies();
 		preferencedependenciesscreen.clickwificheckbox();
@@ -54,11 +54,11 @@ public class Androidapplication {
 	}
 
 	@Then("^I am able to save it succesfully$")
-	public void i_am_able_to_save_it_succesfully() throws Throwable {
+	public void i_am_able_to_save_it_succesfully() {
 	}
 
 	@Given("^I am on the Custom Adapter screen$")
-	public void i_am_on_the_custom_adapter_screen() throws Throwable {
+	public void i_am_on_the_custom_adapter_screen() {
 		apidemoscreen.tapviews();
 		viewsscreen.clickexpandablelists();
 		expandablelistsscreen.clickcustomadaptor();
@@ -66,12 +66,12 @@ public class Androidapplication {
 	}
 
 	@When("^I try to longpress the people name$")
-	public void i_try_to_longpress_the_people_name() throws Throwable {
+	public void i_try_to_longpress_the_people_name() {
 		customadapterscreen.longpresspeoplenames();
 	}
 
 	@Then("^I am able to see the options$")
-	public void i_am_able_to_see_the_options() throws Throwable {
+	public void i_am_able_to_see_the_options() {
 		rfunctions.clickmobilebackbutton();
 		customadapterscreen.verifysamplemenu();
 	}
