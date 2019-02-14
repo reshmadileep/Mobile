@@ -10,13 +10,13 @@ import io.appium.java_client.pagefactory.AppiumFieldDecorator;
 
 public class PreferenceDependencies {
 
-	@AndroidFindBy(id = "android:id/checkbox")
+	@AndroidFindBy(xpath = "//android.widget.CheckBox")
 	private WebElement wificheckbox;
 
 	@AndroidFindBy(xpath = "(//android.widget.RelativeLayout)[2]")
 	private WebElement wifisetting;
 
-	@AndroidFindBy(id = "android:id/edit")
+	@AndroidFindBy(xpath = "//android.widget.EditText")
 	private WebElement wifieditbox;
 
 	@AndroidFindBy(xpath = "//android.widget.Button[@text='OK']")

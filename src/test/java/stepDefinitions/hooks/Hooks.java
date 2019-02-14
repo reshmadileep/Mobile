@@ -77,13 +77,15 @@ public class Hooks {
 
 		if (map.get("DeviceOS").equalsIgnoreCase("Android")) {
 			capabilities.setCapability("platformName", "Android");
-			capabilities.setCapability(MobileCapabilityType.DEVICE_NAME, "Android Emulator");
-			// caps.setCapability("platformVersion", "6.0");
+			if (map.get("Emulator").equalsIgnoreCase("NO")) {
+				capabilities.setCapability(MobileCapabilityType.DEVICE_NAME, "Android Device");
+			} else {
+				capabilities.setCapability(MobileCapabilityType.DEVICE_NAME, "Android Emulator");
+			}
 			driver = new AndroidDriver<WebElement>(new URL("http://127.0.0.1:4723/wd/hub"), capabilities);
 		} else {
 			capabilities.setCapability(MobileCapabilityType.DEVICE_NAME, "iPhone Simulator");
 			capabilities.setCapability("platformName", "iOS");
-			// caps.setCapability("platformVersion", "6.0");
 			driver = new IOSDriver<WebElement>(new URL("http://127.0.0.1:4723/wd/hub"), capabilities);
 		}
 

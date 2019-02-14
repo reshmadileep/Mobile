@@ -10,13 +10,20 @@ import io.appium.java_client.pagefactory.AppiumFieldDecorator;
 public class Views {
 	@AndroidFindBy(xpath = "//android.widget.TextView[@text='Expandable Lists']")
 	private WebElement expandablelists;
+	private AppiumDriver<WebElement> driver;
 
 	public Views(AppiumDriver<WebElement> driver) {
+		this.driver = driver;
 		PageFactory.initElements(new AppiumFieldDecorator(driver), this);
 	}
 
 	public Views clickexpandablelists() {
 		expandablelists.click();
+		return this;
+	}
+
+	public Views clickWebView() {
+
 		return this;
 	}
 
