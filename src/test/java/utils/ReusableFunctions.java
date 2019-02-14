@@ -5,7 +5,6 @@ import static io.appium.java_client.touch.TapOptions.tapOptions;
 import static io.appium.java_client.touch.offset.ElementOption.element;
 import static java.time.Duration.ofSeconds;
 
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
@@ -54,12 +53,6 @@ public class ReusableFunctions {
 
 		Select dropdownlist = new Select(element);
 		dropdownlist.selectByVisibleText(s);
-	}
-
-	public void scrolldown() {
-
-		JavascriptExecutor jse = (JavascriptExecutor) driver;
-		jse.executeScript("window.scrollBy(0,250)", "");
 	}
 
 	public void verifytext(WebElement element, String expectedvalue) {

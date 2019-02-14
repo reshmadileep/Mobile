@@ -33,12 +33,12 @@ public class Hooks {
 	private AppiumDriver<WebElement> driver;
 	String deviceos, executeon, browser, url;
 	DesiredCapabilities capabilities;
+	HashMap<String, String> map;
 
 	public Hooks(World world) {
 		this.world = world;
 		System.out.println("Value of TEST_ENV is " + System.getenv("TEST_ENV"));
 		testEnv = (System.getenv("TEST_ENV") == null) ? testEnv : System.getenv("TEST_ENV");
-
 	}
 
 	@Before(order = 0)
@@ -56,56 +56,58 @@ public class Hooks {
 			e.printStackTrace();
 		}
 
-		deviceos = properties.getProperty("DeviceOS");
-		browser = properties.getProperty("Browser");
-		url = properties.getProperty("URL");
-		executeon = properties.getProperty("Executeon");
+		map = new HashMap<String, String>();
+		for (Map.Entry<Object, Object> entry : properties.entrySet()) {
+			map.put((String) entry.getKey(), (String) entry.getValue());
+		}
 
-		if (executeon.equalsIgnoreCase("browser")) {
+		world.context.put("config", map);
+
+		if (map.get("Executeon").equalsIgnoreCase("browser")) {
 			capabilities.setCapability(MobileCapabilityType.BROWSER_NAME, "Chrome");
 			capabilities.setCapability("chromedriverExecutable",
-					projectPath + "\\src\\test\\resources\\drivers\\geckodriver.exe");
+					projectPath + "\\src\\test\\resources\\drivers\\chromedriver.exe");
 
 		} else {
 			appDir = new File("src");
 			app = new File(appDir, "ApiDemos-debug.apk");
 			capabilities.setCapability(MobileCapabilityType.APP, app.getAbsolutePath());
 		}
+		capabilities.setCapability(MobileCapabilityType.CLEAR_SYSTEM_FILES, true);
 
-		if (deviceos.equalsIgnoreCase("Android")) {
+		if (map.get("DeviceOS").equalsIgnoreCase("Android")) {
 			capabilities.setCapability("platformName", "Android");
 			capabilities.setCapability(MobileCapabilityType.DEVICE_NAME, "Android Emulator");
 			// caps.setCapability("platformVersion", "6.0");
-			driver = new AndroidDriver<>(new URL("http://127.0.0.1:4723/wd/hub"), capabilities);
+			driver = new AndroidDriver<WebElement>(new URL("http://127.0.0.1:4723/wd/hub"), capabilities);
 		} else {
 			capabilities.setCapability(MobileCapabilityType.DEVICE_NAME, "iPhone Simulator");
 			capabilities.setCapability("platformName", "iOS");
 			// caps.setCapability("platformVersion", "6.0");
-			driver = new IOSDriver<>(new URL("http://127.0.0.1:4723/wd/hub"), capabilities);
+			driver = new IOSDriver<WebElement>(new URL("http://127.0.0.1:4723/wd/hub"), capabilities);
 		}
 
 		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-		HashMap<String, String> map = new HashMap<String, String>();
-		for (Map.Entry<Object, Object> entry : properties.entrySet()) {
-			map.put((String) entry.getKey(), (String) entry.getValue());
-		}
-		this.world.context.put("config", map);
-		this.world.context.put("testEnv", testEnv.toLowerCase());
+
+		world.context.put("testEnv", testEnv.toLowerCase());
 		world.context.put("driver", driver);
+
 	}
 
 	@After
 	public void doCleanupAfterExecution(Scenario scenario) {
+
+		if (map.get("Executeon").equalsIgnoreCase("browser")) {
+			driver = (AndroidDriver<WebElement>) driver;
+		}
 		if (scenario.isFailed()) {
 			TakesScreenshot screenshoti = (TakesScreenshot) new Augmenter().augment(driver);
 			final byte[] screenshot = screenshoti.getScreenshotAs(OutputType.BYTES);
 			scenario.embed(screenshot, "image/png");
 			scenario.write("URL: " + driver.getCurrentUrl());
 		}
-
-		if (executeon.equalsIgnoreCase("browser")) {
+		if (map.get("Executeon").equalsIgnoreCase("browser")) {
 			driver.close();
-
 		} else {
 			driver.closeApp();
 		}

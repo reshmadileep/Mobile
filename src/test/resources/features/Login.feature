@@ -4,5 +4,5 @@ Feature: Login Feature
 
     Scenario: Login with valid credentials
         Given I as a admin user navigate to Home page        
-        When I try to login with username "Admin" and password "admin123"
+        When I try to login with username and password
         Then I am logged in successfully

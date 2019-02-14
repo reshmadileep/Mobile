@@ -1,12 +1,16 @@
 
 package pages;
 
+import java.util.HashMap;
+
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-import io.appium.java_client.AppiumDriver;
+import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.AndroidElement;
+import io.appium.java_client.pagefactory.AppiumFieldDecorator;
+import stepDefinitions.World;
 
 public class HomePage {
 
@@ -18,11 +22,16 @@ public class HomePage {
 
 	@FindBy(id = "btnLogin")
 	private WebElement btnLogin;
-	private AppiumDriver<WebElement> driver;
+	private AndroidDriver<WebElement> driver;
+	private World world;
+	private HashMap<String, String> map;
 
-	public HomePage(AppiumDriver<WebElement> driver) {
-		this.driver = driver;
-		PageFactory.initElements(driver, this);
+	@SuppressWarnings("unchecked")
+	public HomePage(World world) {
+		this.world = world;
+		driver = (AndroidDriver<WebElement>) this.world.context.get("driver");
+		PageFactory.initElements(new AppiumFieldDecorator(driver), this);
+		map = (HashMap<String, String>) world.context.get("config");
 	}
 
 	public HomePage enterUsername(String username) {
@@ -48,11 +57,6 @@ public class HomePage {
 		} else {
 			System.out.println("Home page is not launched");
 		}
-		return this;
-	}
-
-	public HomePage loginWithDefaultCredentials() {
-		verifyTitle().enterUsername("Admin").enterPassword("admin123").clickLoginBtn();
 		return this;
 	}
 

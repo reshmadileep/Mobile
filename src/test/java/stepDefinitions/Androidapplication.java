@@ -1,5 +1,7 @@
 package stepDefinitions;
 
+import java.util.HashMap;
+
 import org.openqa.selenium.WebElement;
 
 import cucumber.api.java.en.Given;
@@ -18,6 +20,7 @@ public class Androidapplication {
 
 	private World world;
 	private AppiumDriver<WebElement> driver;
+	private HashMap<String, String> map;
 	APIDemo apidemoscreen;
 	Preference preferencescreen;
 	PreferenceDependencies preferencedependenciesscreen;
@@ -37,6 +40,7 @@ public class Androidapplication {
 		expandablelistsscreen = new ExpandableLists(driver);
 		viewsscreen = new Views(driver);
 		rfunctions = new ReusableFunctions(driver);
+		map = (HashMap<String, String>) world.context.get("config");
 	}
 
 	@Given("^I am on the WIFI settings screen$")

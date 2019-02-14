@@ -1,5 +1,7 @@
 package stepDefinitions;
 
+import java.util.HashMap;
+
 import org.openqa.selenium.WebElement;
 
 import cucumber.api.java.en.Given;
@@ -12,37 +14,30 @@ public class login {
 	public World world;
 	public AppiumDriver<WebElement> driver;
 	public HomePage homePage;
+	private HashMap<String, String> map;
 
 	@SuppressWarnings("unchecked")
 	public login(World world) {
 		this.world = world;
 		driver = (AppiumDriver<WebElement>) this.world.context.get("driver");
-		homePage = new HomePage(driver);
+		homePage = new HomePage(world);
+		map = (HashMap<String, String>) world.context.get("config");
 	}
-
-	String url = (String) this.world.context.get("URL");
 
 	@Given("I as a admin user navigate to Home page")
-
 	public void i_as_a_admin_user_navigate_to_Home_page() {
-		// Write code here that turns the phrase above into concrete actions
-		driver.get(url);
-
+		driver.get(map.get("OrangeURL"));
 	}
 
-	@When("I try to login with username {string} and password {string}")
-	public void i_try_to_login_with_username_and_password(String string, String string2) {
-		// Write code here that turns the phrase above into concrete actions
-		driver.get(url);
-		homePage.enterUsername("Admin");
-		homePage.enterPassword("admin123");
+	@When("I try to login with username and password")
+	public void i_try_to_login_with_username_and_password() {
+		homePage.enterUsername(map.get("Username"));
+		homePage.enterPassword(map.get("Password"));
 		homePage.clickLoginBtn();
 	}
 
 	@Then("I am logged in successfully")
 	public void i_am_logged_in_successfully() {
-		// Write code here that turns the phrase above into concrete actions
-
 		System.out.println("verify home page title");
 	}
 
