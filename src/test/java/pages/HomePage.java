@@ -22,6 +22,10 @@ public class HomePage {
 
 	@FindBy(id = "btnLogin")
 	private WebElement btnLogin;
+	
+	@FindBy(id = "dashboardTab")
+	private WebElement dashboardTab;
+	
 	private AndroidDriver<WebElement> driver;
 	private World world;
 	private HashMap<String, String> map;
@@ -59,5 +63,17 @@ public class HomePage {
 		}
 		return this;
 	}
+	
+	public HomePage verifyLogin() {
+		
+		if(dashboardTab.isDisplayed())
+			System.out.println("Logged in Successfully");
+		else
+			System.out.println("Login Unsuccessful ");	
+		
+		return this;
+		
+	}
+	}
 
-}
+
