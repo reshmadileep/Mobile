@@ -21,6 +21,10 @@ public class PreferenceDependencies {
 
 	@AndroidFindBy(xpath = "//android.widget.Button[@text='OK']")
 	private WebElement wifieditokbutton;
+	
+	
+	
+	
 
 	public PreferenceDependencies(AppiumDriver<WebElement> driver) {
 		PageFactory.initElements(new AppiumFieldDecorator(driver), this);
@@ -45,5 +49,15 @@ public class PreferenceDependencies {
 		wifieditokbutton.click();
 		return this;
 	}
+	
+	public PreferenceDependencies verifyWifiSetting(String value) {
+		
+		if(wifieditbox.getText().equals(value))
+			System.out.println("Wifi Setting saved successfully");
+		else
+			System.out.println("Wifi Setting is not saved");
+		return this;
+	}
+	
 
 }

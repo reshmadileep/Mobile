@@ -60,6 +60,10 @@ public class Androidapplication {
 	@Then("^I am able to save it succesfully$")
 	public void i_am_able_to_save_it_succesfully() {
 		preferencedependenciesscreen.clickwifisetting();
+		preferencedependenciesscreen.verifyWifiSetting(map.get("WIFIValue"));
+		
+	
+		
 		// value from app verify it with mapvalue
 	}
 
