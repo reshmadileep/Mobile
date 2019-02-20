@@ -11,7 +11,7 @@ import utils.ReusableFunctions;
 
 public class WebView {
 
-	@AndroidFindBy(xpath = "//android.webkit.WebView")
+	@AndroidFindBy(xpath = "//android.view.View")
 	private WebElement text;
 
 	private AppiumDriver<WebElement> driver;
@@ -24,6 +24,7 @@ public class WebView {
 	}
 
 	public WebView verifytext() {
+		System.out.println(text.getAttribute("text"));
 		Assert.assertTrue(text.getAttribute("text").contains("Hello World!"));
 		return this;
 	}

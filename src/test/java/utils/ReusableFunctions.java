@@ -94,7 +94,7 @@ public class ReusableFunctions {
 		Double scrollheightstart = size.getHeight() * 0.5;
 		int scrollstart = scrollheightstart.intValue();
 
-		Double scrollheightend = size.getHeight() * 0.2;
+		Double scrollheightend = size.getHeight() * 0.1;
 		int scrollend = scrollheightend.intValue();
 
 		new TouchAction((PerformsTouchActions) driver).press(PointOption.point(0, scrollstart))
