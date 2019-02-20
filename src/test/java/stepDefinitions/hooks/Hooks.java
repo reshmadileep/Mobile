@@ -89,7 +89,7 @@ public class Hooks {
 			driver = new IOSDriver<WebElement>(new URL("http://127.0.0.1:4723/wd/hub"), capabilities);
 		}
 
-		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+		driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
 
 		world.context.put("testEnv", testEnv.toLowerCase());
 		world.context.put("driver", driver);
@@ -106,7 +106,7 @@ public class Hooks {
 			TakesScreenshot screenshoti = (TakesScreenshot) new Augmenter().augment(driver);
 			final byte[] screenshot = screenshoti.getScreenshotAs(OutputType.BYTES);
 			scenario.embed(screenshot, "image/png");
-			scenario.write("URL: " + driver.getCurrentUrl());
+			// scenario.write("URL: " + driver.getCurrentUrl());
 		}
 		if (map.get("Executeon").equalsIgnoreCase("browser")) {
 			driver.close();

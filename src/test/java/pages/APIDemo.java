@@ -1,5 +1,7 @@
 package pages;
 
+import java.util.List;
+
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
 
@@ -11,10 +13,10 @@ import utils.ReusableFunctions;
 public class APIDemo {
 
 	@AndroidFindBy(xpath = "//android.widget.TextView[@text='Preference']")
-	public WebElement preference;
+	public List<WebElement> preference;
 
 	@AndroidFindBy(xpath = "//android.widget.TextView[@text='Views']")
-	public WebElement views;
+	public List<WebElement> views;
 
 	ReusableFunctions rfunctions;
 
@@ -24,12 +26,23 @@ public class APIDemo {
 	}
 
 	public APIDemo clickpreference() {
-		preference.click();
+		while (preference.size() == 0) {
+			rfunctions.scrollDownapp();
+		}
+		if (preference.size() > 0) {
+			preference.get(0).click();
+		}
 		return this;
 	}
 
 	public APIDemo tapviews() {
-		rfunctions.tapelement(views);
+
+		while (views.size() == 0) {
+			rfunctions.scrollDownapp();
+		}
+		if (views.size() > 0) {
+			views.get(0).click();
+		}
 		return this;
 	}
 

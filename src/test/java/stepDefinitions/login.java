@@ -38,9 +38,9 @@ public class login {
 
 	@Then("I am logged in successfully")
 	public void i_am_logged_in_successfully() {
-		
+
 		homePage.verifyLogin();
-	//	System.out.println("verify home page title");
+		// System.out.println("verify home page title");
 	}
 
 }

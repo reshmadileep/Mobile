@@ -5,15 +5,22 @@ import static io.appium.java_client.touch.TapOptions.tapOptions;
 import static io.appium.java_client.touch.offset.ElementOption.element;
 import static java.time.Duration.ofSeconds;
 
+import java.time.Duration;
+
+import org.openqa.selenium.Dimension;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 
 import io.appium.java_client.AppiumDriver;
+import io.appium.java_client.PerformsTouchActions;
 import io.appium.java_client.TouchAction;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.nativekey.AndroidKey;
 import io.appium.java_client.android.nativekey.KeyEvent;
+import io.appium.java_client.touch.WaitOptions;
+import io.appium.java_client.touch.offset.PointOption;
 
 public class ReusableFunctions {
 
@@ -81,10 +88,18 @@ public class ReusableFunctions {
 				.moveTo(element(second)).release().perform();
 	}
 
-	public void androidscrollto(String text) {
-		// check this function - supposed to use findbyandroiduiautomator
-		driver.findElementsByAccessibilityId("new UIScrollable(new UISelector()).scrollIntoView(text(\"text\")))");
+	public void scrollDownapp() {
+		Dimension size = driver.manage().window().getSize();
 
+		Double scrollheightstart = size.getHeight() * 0.5;
+		int scrollstart = scrollheightstart.intValue();
+
+		Double scrollheightend = size.getHeight() * 0.2;
+		int scrollend = scrollheightend.intValue();
+
+		new TouchAction((PerformsTouchActions) driver).press(PointOption.point(0, scrollstart))
+				.waitAction(WaitOptions.waitOptions(Duration.ofSeconds(1))).moveTo(PointOption.point(0, scrollend))
+				.release().perform();
 	}
 
 	public void draganddrop(WebElement source, WebElement destination) {
@@ -93,6 +108,13 @@ public class ReusableFunctions {
 
 	public void clickmobilebackbutton() {
 		((AndroidDriver<WebElement>) driver).pressKey(new KeyEvent(AndroidKey.BACK));
+	}
+
+	public void scrollDownBrowser() {
+
+		JavascriptExecutor jse = (JavascriptExecutor) driver;
+		jse.executeScript("window.scrollBy(0.480)", "");
+
 	}
 
 }
