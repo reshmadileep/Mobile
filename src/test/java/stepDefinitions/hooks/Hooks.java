@@ -86,11 +86,11 @@ public class Hooks {
 			driver = new AndroidDriver<WebElement>(new URL("http://127.0.0.1:4723/wd/hub"), capabilities);
 		} else {
 			capabilities.setCapability("platformName", "IOS");
-			if (map.get("Emulator").equalsIgnoreCase("NO")) {
-				capabilities.setCapability(MobileCapabilityType.DEVICE_NAME, "");
-			} else {
-				capabilities.setCapability(MobileCapabilityType.DEVICE_NAME, "iPhone XR");
-				capabilities.setCapability(MobileCapabilityType.AUTOMATION_NAME, AutomationName.IOS_XCUI_TEST);
+			capabilities.setCapability(MobileCapabilityType.DEVICE_NAME, "iPhone XR");
+			capabilities.setCapability(MobileCapabilityType.AUTOMATION_NAME, AutomationName.IOS_XCUI_TEST);
+
+			if (map.get("Emulator").equalsIgnoreCase("YES")) {
+				capabilities.setCapability(MobileCapabilityType.UDID, map.get("IOSDeviceUDID"));
 			}
 			if (map.get("Executeon").equalsIgnoreCase("browser")) {
 				capabilities.setCapability(MobileCapabilityType.BROWSER_NAME, "Safari");
