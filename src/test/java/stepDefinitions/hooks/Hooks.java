@@ -23,6 +23,7 @@ import cucumber.api.java.Before;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.ios.IOSDriver;
+import io.appium.java_client.remote.AutomationName;
 import io.appium.java_client.remote.MobileCapabilityType;
 import stepDefinitions.World;
 
@@ -43,6 +44,7 @@ public class Hooks {
 
 	@Before(order = 0)
 	public void doSetupBeforeExecution() throws MalformedURLException {
+
 		File appDir, app;
 		capabilities = new DesiredCapabilities();
 		properties = new Properties();
@@ -63,16 +65,6 @@ public class Hooks {
 
 		world.context.put("config", map);
 
-		if (map.get("Executeon").equalsIgnoreCase("browser")) {
-			capabilities.setCapability(MobileCapabilityType.BROWSER_NAME, "Chrome");
-			capabilities.setCapability("chromedriverExecutable",
-					projectPath + "\\src\\test\\resources\\drivers\\chromedriver.exe");
-
-		} else {
-			appDir = new File("src");
-			app = new File(appDir, "ApiDemos-debug.apk");
-			capabilities.setCapability(MobileCapabilityType.APP, app.getAbsolutePath());
-		}
 		capabilities.setCapability(MobileCapabilityType.CLEAR_SYSTEM_FILES, true);
 
 		if (map.get("DeviceOS").equalsIgnoreCase("Android")) {
@@ -82,18 +74,38 @@ public class Hooks {
 			} else {
 				capabilities.setCapability(MobileCapabilityType.DEVICE_NAME, "Android Emulator");
 			}
+			if (map.get("Executeon").equalsIgnoreCase("browser")) {
+				capabilities.setCapability(MobileCapabilityType.BROWSER_NAME, "Chrome");
+				capabilities.setCapability("chromedriverExecutable",
+						projectPath + "\\src\\test\\resources\\drivers\\chromedriver.exe");
+			} else {
+				appDir = new File("src");
+				app = new File(appDir, "ApiDemos-debug.apk");
+				capabilities.setCapability(MobileCapabilityType.APP, app.getAbsolutePath());
+			}
 			driver = new AndroidDriver<WebElement>(new URL("http://127.0.0.1:4723/wd/hub"), capabilities);
 		} else {
-			capabilities.setCapability(MobileCapabilityType.DEVICE_NAME, "iPhone Simulator");
-			capabilities.setCapability("platformName", "iOS");
+			capabilities.setCapability("platformName", "IOS");
+			if (map.get("Emulator").equalsIgnoreCase("NO")) {
+				capabilities.setCapability(MobileCapabilityType.DEVICE_NAME, "");
+			} else {
+				capabilities.setCapability(MobileCapabilityType.DEVICE_NAME, "iPhone XR");
+				capabilities.setCapability(MobileCapabilityType.AUTOMATION_NAME, AutomationName.IOS_XCUI_TEST);
+			}
+			if (map.get("Executeon").equalsIgnoreCase("browser")) {
+				capabilities.setCapability(MobileCapabilityType.BROWSER_NAME, "Safari");
+				capabilities.setCapability("safaridriverExecutable",
+						projectPath + "\\src\\test\\resources\\drivers\\selenium-safari-driver-2.29.1.jar");
+			} else {
+				appDir = new File("src");
+				app = new File(appDir, "UICatalog.app");
+				capabilities.setCapability(MobileCapabilityType.APP, app.getAbsolutePath());
+			}
 			driver = new IOSDriver<WebElement>(new URL("http://127.0.0.1:4723/wd/hub"), capabilities);
 		}
-
 		driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
-
 		world.context.put("testEnv", testEnv.toLowerCase());
 		world.context.put("driver", driver);
-
 	}
 
 	@After
