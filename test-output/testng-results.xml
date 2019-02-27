@@ -1,17 +1,76 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testng-results ignored="0" total="1" passed="1" failed="0" skipped="0">
+<testng-results ignored="0" total="3" passed="3" failed="0" skipped="0">
   <reporter-output>
   </reporter-output>
-  <suite started-at="2019-01-31T05:53:58Z" name="Suite" finished-at="2019-01-31T05:54:14Z" duration-ms="15518">
+  <suite started-at="2019-02-27T05:43:31Z" name="Suite" finished-at="2019-02-27T05:45:07Z" duration-ms="96039">
     <groups>
+      <group name="cucumber">
+        <method signature="AbstractTestNGCucumberTests.runScenario(cucumber.api.testng.PickleEventWrapper, cucumber.api.testng.CucumberFeatureWrapper)[pri:0, instance:runner.testRunner@a2431d0]" name="runScenario" class="cucumber.api.testng.AbstractTestNGCucumberTests"/>
+      </group> <!-- cucumber -->
     </groups>
-    <test started-at="2019-01-31T05:53:58Z" name="Test" finished-at="2019-01-31T05:54:14Z" duration-ms="15518">
-      <class name="QualityArc.Mobile.App">
-        <test-method signature="accessibility()[pri:0, instance:QualityArc.Mobile.App@625732]" started-at="2019-01-31T05:53:58Z" name="accessibility" finished-at="2019-01-31T05:54:14Z" duration-ms="15476" status="PASS">
+    <test started-at="2019-02-27T05:43:31Z" name="ChromeTest" finished-at="2019-02-27T05:45:07Z" duration-ms="96039">
+      <class name="runner.testRunner">
+        <test-method is-config="true" signature="setUpClass()[pri:0, instance:runner.testRunner@a2431d0]" started-at="2019-02-27T05:43:31Z" name="setUpClass" finished-at="2019-02-27T05:43:31Z" duration-ms="138" status="PASS">
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- accessibility -->
-      </class> <!-- QualityArc.Mobile.App -->
-    </test> <!-- Test -->
+        </test-method> <!-- setUpClass -->
+        <test-method signature="runScenario(cucumber.api.testng.PickleEventWrapper, cucumber.api.testng.CucumberFeatureWrapper)[pri:0, instance:runner.testRunner@a2431d0]" started-at="2019-02-27T05:43:31Z" name="runScenario" description="Runs Cucumber Scenarios" data-provider="scenarios" finished-at="2019-02-27T05:44:05Z" duration-ms="34063" status="PASS">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA["Able to apply wifi setting"]]>
+              </value>
+            </param>
+            <param index="1">
+              <value>
+                <![CDATA["Wifi Setting Feature"]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- runScenario -->
+        <test-method signature="runScenario(cucumber.api.testng.PickleEventWrapper, cucumber.api.testng.CucumberFeatureWrapper)[pri:0, instance:runner.testRunner@a2431d0]" started-at="2019-02-27T05:44:05Z" name="runScenario" description="Runs Cucumber Scenarios" data-provider="scenarios" finished-at="2019-02-27T05:44:21Z" duration-ms="15851" status="PASS">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA["Able to tap and longpress"]]>
+              </value>
+            </param>
+            <param index="1">
+              <value>
+                <![CDATA["Wifi Setting Feature"]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- runScenario -->
+        <test-method signature="runScenario(cucumber.api.testng.PickleEventWrapper, cucumber.api.testng.CucumberFeatureWrapper)[pri:0, instance:runner.testRunner@a2431d0]" started-at="2019-02-27T05:44:21Z" name="runScenario" description="Runs Cucumber Scenarios" data-provider="scenarios" finished-at="2019-02-27T05:45:07Z" duration-ms="45703" status="PASS">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA["Able to scroll and navigate to hello world"]]>
+              </value>
+            </param>
+            <param index="1">
+              <value>
+                <![CDATA["Wifi Setting Feature"]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- runScenario -->
+        <test-method is-config="true" signature="tearDownClass()[pri:0, instance:runner.testRunner@a2431d0]" started-at="2019-02-27T05:45:07Z" name="tearDownClass" finished-at="2019-02-27T05:45:07Z" duration-ms="228" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- tearDownClass -->
+        <test-method is-config="true" signature="writeCucumberHtmlReport()[pri:0, instance:runner.testRunner@a2431d0]" started-at="2019-02-27T05:45:07Z" name="writeCucumberHtmlReport" finished-at="2019-02-27T05:45:10Z" duration-ms="2673" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- writeCucumberHtmlReport -->
+      </class> <!-- runner.testRunner -->
+    </test> <!-- ChromeTest -->
   </suite> <!-- Suite -->
 </testng-results>

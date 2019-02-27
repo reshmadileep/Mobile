@@ -24,7 +24,7 @@ import io.appium.java_client.touch.offset.PointOption;
 
 public class ReusableFunctions {
 
-	private AppiumDriver<WebElement> driver;
+	private AppiumDriver<?> driver;
 	private TouchAction taction;
 
 	public ReusableFunctions(AppiumDriver<WebElement> driver) {
@@ -106,6 +106,7 @@ public class ReusableFunctions {
 		taction.longPress(element(source)).moveTo(element(destination)).release().perform();
 	}
 
+	@SuppressWarnings("unchecked")
 	public void clickmobilebackbutton() {
 		((AndroidDriver<WebElement>) driver).pressKey(new KeyEvent(AndroidKey.BACK));
 	}

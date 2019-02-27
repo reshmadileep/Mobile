@@ -23,6 +23,7 @@ import cucumber.api.java.Before;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.ios.IOSDriver;
+import io.appium.java_client.ios.IOSElement;
 import io.appium.java_client.remote.AutomationName;
 import io.appium.java_client.remote.MobileCapabilityType;
 import stepDefinitions.World;
@@ -31,7 +32,7 @@ public class Hooks {
 	private World world;
 	private String testEnv = "dev";
 	private Properties properties;
-	private AppiumDriver<WebElement> driver;
+	private AppiumDriver<?> driver;
 	String deviceos, executeon, browser, url;
 	DesiredCapabilities capabilities;
 	HashMap<String, String> map;
@@ -101,7 +102,7 @@ public class Hooks {
 				app = new File(appDir, "UICatalog.app");
 				capabilities.setCapability(MobileCapabilityType.APP, app.getAbsolutePath());
 			}
-			driver = new IOSDriver<WebElement>(new URL("http://127.0.0.1:4723/wd/hub"), capabilities);
+			driver = new IOSDriver<IOSElement>(new URL("http://127.0.0.1:4723/wd/hub"), capabilities);
 		}
 		driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
 		world.context.put("testEnv", testEnv.toLowerCase());
