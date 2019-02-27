@@ -110,18 +110,24 @@ public class Hooks {
 
 	@After
 	public void doCleanupAfterExecution(Scenario scenario) {
-
-		if (map.get("Executeon").equalsIgnoreCase("browser")) {
-			driver = (AndroidDriver<WebElement>) driver;
+		if (map.get("DeviceOS").equalsIgnoreCase("Android")) {
+			if (map.get("Executeon").equalsIgnoreCase("browser")) {
+				driver = (AndroidDriver<WebElement>) driver;
+			}
 		}
+
 		if (scenario.isFailed()) {
 			TakesScreenshot screenshoti = (TakesScreenshot) new Augmenter().augment(driver);
 			final byte[] screenshot = screenshoti.getScreenshotAs(OutputType.BYTES);
 			scenario.embed(screenshot, "image/png");
 			// scenario.write("URL: " + driver.getCurrentUrl());
 		}
-		if (map.get("Executeon").equalsIgnoreCase("browser")) {
-			driver.close();
+		if (map.get("DeviceOS").equalsIgnoreCase("Android")) {
+			if (map.get("Executeon").equalsIgnoreCase("browser")) {
+				driver.close();
+			} else {
+				driver.closeApp();
+			}
 		} else {
 			driver.closeApp();
 		}
