@@ -23,6 +23,7 @@ public class APIDemo {
 	public APIDemo(AppiumDriver<WebElement> driver) {
 		PageFactory.initElements(new AppiumFieldDecorator(driver), this);
 		rfunctions = new ReusableFunctions(driver);
+
 	}
 
 	public APIDemo clickpreference() {
