@@ -33,7 +33,6 @@ public class Hooks {
 	private String testEnv = "dev";
 	private Properties properties;
 	private AppiumDriver<?> driver;
-	String deviceos, executeon, browser, url;
 	DesiredCapabilities capabilities;
 	HashMap<String, String> map;
 
