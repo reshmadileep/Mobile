@@ -40,6 +40,7 @@ public class Hooks {
 		this.world = world;
 		System.out.println("Value of TEST_ENV is " + System.getenv("TEST_ENV"));
 		testEnv = (System.getenv("TEST_ENV") == null) ? testEnv : System.getenv("TEST_ENV");
+
 	}
 
 	@Before(order = 0)
