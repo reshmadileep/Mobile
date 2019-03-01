@@ -12,7 +12,8 @@ import net.masterthought.cucumber.Configuration;
 import net.masterthought.cucumber.ReportBuilder;
 import net.masterthought.cucumber.Reportable;
 
-@CucumberOptions(features = "src/test/resources/features/AndroidApp.feature", glue = {
+@CucumberOptions(features = "src/test/resources/features/IOSApp.feature", glue = {
+//@CucumberOptions(features = "src/test/resources/features/AndroidApp.feature", glue = {
 //@CucumberOptions(features = "src/test/resources/features/Login.feature", glue = {
 		"stepDefinitions" }, tags = { "not (@inProgress or @manualTest or @todoDev)" }, plugin = { "pretty",
 				"json:target/cucumber-reports/Cucumber.json",

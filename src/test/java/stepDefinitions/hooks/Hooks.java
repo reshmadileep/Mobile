@@ -18,7 +18,6 @@ import org.openqa.selenium.remote.Augmenter;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
 import cucumber.api.Scenario;
-import cucumber.api.java.After;
 import cucumber.api.java.Before;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.android.AndroidDriver;
@@ -109,7 +108,7 @@ public class Hooks {
 		world.context.put("driver", driver);
 	}
 
-	@After
+	// @After
 	public void doCleanupAfterExecution(Scenario scenario) {
 		if (map.get("DeviceOS").equalsIgnoreCase("Android")) {
 			if (map.get("Executeon").equalsIgnoreCase("browser")) {
