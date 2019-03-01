@@ -90,7 +90,7 @@ public class Hooks {
 			capabilities.setCapability(MobileCapabilityType.DEVICE_NAME, "iPhone XR");
 			capabilities.setCapability(MobileCapabilityType.AUTOMATION_NAME, AutomationName.IOS_XCUI_TEST);
 
-			if (map.get("Emulator").equalsIgnoreCase("YES")) {
+			if (map.get("Emulator").equalsIgnoreCase("NO")) {
 				capabilities.setCapability(MobileCapabilityType.UDID, map.get("IOSDeviceUDID"));
 			}
 			if (map.get("Executeon").equalsIgnoreCase("browser")) {
@@ -113,7 +113,11 @@ public class Hooks {
 	public void doCleanupAfterExecution(Scenario scenario) {
 		if (map.get("DeviceOS").equalsIgnoreCase("Android")) {
 			if (map.get("Executeon").equalsIgnoreCase("browser")) {
-				driver = (AndroidDriver<WebElement>) driver;
+				driver = (AndroidDriver<?>) driver;
+			}
+		} else {
+			if (map.get("Executeon").equalsIgnoreCase("browser")) {
+				driver = (IOSDriver<?>) driver;
 			}
 		}
 
@@ -123,16 +127,11 @@ public class Hooks {
 			scenario.embed(screenshot, "image/png");
 			// scenario.write("URL: " + driver.getCurrentUrl());
 		}
-		if (map.get("DeviceOS").equalsIgnoreCase("Android")) {
-			if (map.get("Executeon").equalsIgnoreCase("browser")) {
-				driver.close();
-			} else {
-				driver.closeApp();
-			}
+
+		if (map.get("Executeon").equalsIgnoreCase("browser")) {
+			driver.close();
 		} else {
 			driver.closeApp();
 		}
-
 	}
-
 }

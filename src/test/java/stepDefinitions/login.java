@@ -2,8 +2,6 @@ package stepDefinitions;
 
 import java.util.HashMap;
 
-import org.openqa.selenium.WebElement;
-
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -12,14 +10,14 @@ import pages.HomePage;
 
 public class login {
 	public World world;
-	public AppiumDriver<WebElement> driver;
+	public AppiumDriver<?> driver;
 	public HomePage homePage;
 	private HashMap<String, String> map;
 
 	@SuppressWarnings("unchecked")
 	public login(World world) {
 		this.world = world;
-		driver = (AppiumDriver<WebElement>) this.world.context.get("driver");
+		driver = (AppiumDriver<?>) this.world.context.get("driver");
 		homePage = new HomePage(world);
 		map = (HashMap<String, String>) world.context.get("config");
 	}

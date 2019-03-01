@@ -22,18 +22,18 @@ public class HomePage {
 
 	@FindBy(id = "btnLogin")
 	private WebElement btnLogin;
-	
+
 	@FindBy(id = "dashboardTab")
 	private WebElement dashboardTab;
-	
-	private AndroidDriver<WebElement> driver;
+
+	private AndroidDriver<?> driver;
 	private World world;
 	private HashMap<String, String> map;
 
 	@SuppressWarnings("unchecked")
 	public HomePage(World world) {
 		this.world = world;
-		driver = (AndroidDriver<WebElement>) this.world.context.get("driver");
+		driver = (AndroidDriver<?>) this.world.context.get("driver");
 		PageFactory.initElements(new AppiumFieldDecorator(driver), this);
 		map = (HashMap<String, String>) world.context.get("config");
 	}
@@ -63,17 +63,15 @@ public class HomePage {
 		}
 		return this;
 	}
-	
+
 	public HomePage verifyLogin() {
-		
-		if(dashboardTab.isDisplayed())
+
+		if (dashboardTab.isDisplayed())
 			System.out.println("Logged in Successfully");
 		else
-			System.out.println("Login Unsuccessful ");	
-		
+			System.out.println("Login Unsuccessful ");
+
 		return this;
-		
-	}
-	}
 
-
+	}
+}

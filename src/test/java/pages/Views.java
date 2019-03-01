@@ -18,13 +18,13 @@ public class Views {
 	@AndroidFindBy(xpath = "//android.widget.TextView[@content-desc='WebView']")
 	private List<WebElement> webviews;
 
-	private AppiumDriver<WebElement> driver;
+	private AppiumDriver<?> driver;
 	ReusableFunctions rfunctions;
 
-	public Views(AppiumDriver<WebElement> driver) {
-		this.driver = driver;
-		PageFactory.initElements(new AppiumFieldDecorator(driver), this);
-		rfunctions = new ReusableFunctions(driver);
+	public Views(AppiumDriver<?> driver2) {
+		this.driver = driver2;
+		PageFactory.initElements(new AppiumFieldDecorator(driver2), this);
+		rfunctions = new ReusableFunctions(driver2);
 	}
 
 	public Views clickexpandablelists() {

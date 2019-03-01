@@ -11,7 +11,7 @@ public class ExpandableLists {
 	@AndroidFindBy(xpath = "//android.widget.TextView[@content-desc='1. Custom Adapter']")
 	private WebElement customadaptor;
 
-	public ExpandableLists(AppiumDriver<WebElement> driver) {
+	public ExpandableLists(AppiumDriver<?> driver) {
 		PageFactory.initElements(new AppiumFieldDecorator(driver), this);
 	}
 

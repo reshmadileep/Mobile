@@ -20,7 +20,7 @@ import utils.ReusableFunctions;
 public class Androidapplication {
 
 	private World world;
-	private AppiumDriver<WebElement> driver;
+	private AppiumDriver<?> driver;
 	private HashMap<String, String> map;
 	APIDemo apidemoscreen;
 	Preference preferencescreen;
