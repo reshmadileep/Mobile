@@ -27,9 +27,9 @@ public class ReusableFunctions {
 	private AppiumDriver<?> driver;
 	private TouchAction taction;
 
-	public ReusableFunctions(AppiumDriver<WebElement> driver) {
-		this.driver = driver;
-		taction = new TouchAction(driver);
+	public ReusableFunctions(AppiumDriver<?> driver2) {
+		this.driver = driver2;
+		taction = new TouchAction(driver2);
 	}
 
 	public void input(WebElement element, String value) {

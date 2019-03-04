@@ -20,9 +20,10 @@ public class APIDemo {
 
 	ReusableFunctions rfunctions;
 
-	public APIDemo(AppiumDriver<WebElement> driver) {
+	public APIDemo(AppiumDriver<?> driver) {
 		PageFactory.initElements(new AppiumFieldDecorator(driver), this);
 		rfunctions = new ReusableFunctions(driver);
+
 	}
 
 	public APIDemo clickpreference() {

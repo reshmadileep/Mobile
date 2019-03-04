@@ -1,13 +1,11 @@
 package stepDefinitions.hooks;
 
-import org.openqa.selenium.WebElement;
-
 import io.appium.java_client.AppiumDriver;
 import stepDefinitions.World;
 
 public class ScenarioHooks {
 	private World world;
-	private AppiumDriver<WebElement> driver;
+	private AppiumDriver<?> driver;
 
 	/*
 	 * @SuppressWarnings("unchecked") public ScenarioHooks(World world) { this.world

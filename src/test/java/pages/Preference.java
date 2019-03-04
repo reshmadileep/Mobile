@@ -12,7 +12,7 @@ public class Preference {
 	@AndroidFindBy(id = "3. Preference dependencies")
 	private WebElement preferencedependencies;
 
-	public Preference(AppiumDriver<WebElement> driver) {
+	public Preference(AppiumDriver<?> driver) {
 		PageFactory.initElements(new AppiumFieldDecorator(driver), this);
 	}
 

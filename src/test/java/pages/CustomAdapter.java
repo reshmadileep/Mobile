@@ -18,7 +18,7 @@ public class CustomAdapter {
 
 	ReusableFunctions rfunctions;
 
-	public CustomAdapter(AppiumDriver<WebElement> driver) {
+	public CustomAdapter(AppiumDriver<?> driver) {
 		PageFactory.initElements(new AppiumFieldDecorator(driver), this);
 		rfunctions = new ReusableFunctions(driver);
 	}

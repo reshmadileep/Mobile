@@ -18,7 +18,6 @@ import org.openqa.selenium.remote.Augmenter;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
 import cucumber.api.Scenario;
-import cucumber.api.java.After;
 import cucumber.api.java.Before;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.android.AndroidDriver;
@@ -33,14 +32,14 @@ public class Hooks {
 	private String testEnv = "dev";
 	private Properties properties;
 	private AppiumDriver<?> driver;
-	String deviceos, executeon, browser, url;
 	DesiredCapabilities capabilities;
 	HashMap<String, String> map;
 
 	public Hooks(World world) {
 		this.world = world;
-		System.out.println("Value of TEST_ENV is " + System.getenv("TEST_ENV"));
+		// System.out.println("Value of TEST_ENV is " + System.getenv("TEST_ENV"));
 		testEnv = (System.getenv("TEST_ENV") == null) ? testEnv : System.getenv("TEST_ENV");
+
 	}
 
 	@Before(order = 0)
@@ -86,11 +85,11 @@ public class Hooks {
 			}
 			driver = new AndroidDriver<WebElement>(new URL("http://127.0.0.1:4723/wd/hub"), capabilities);
 		} else {
-			capabilities.setCapability("platformName", "IOS");
-			capabilities.setCapability(MobileCapabilityType.DEVICE_NAME, "iPhone XR");
+			capabilities.setCapability(MobileCapabilityType.PLATFORM_NAME, "IOS");
+			capabilities.setCapability(MobileCapabilityType.DEVICE_NAME, "iPhone 6");
 			capabilities.setCapability(MobileCapabilityType.AUTOMATION_NAME, AutomationName.IOS_XCUI_TEST);
 
-			if (map.get("Emulator").equalsIgnoreCase("YES")) {
+			if (map.get("Emulator").equalsIgnoreCase("NO")) {
 				capabilities.setCapability(MobileCapabilityType.UDID, map.get("IOSDeviceUDID"));
 			}
 			if (map.get("Executeon").equalsIgnoreCase("browser")) {
@@ -98,9 +97,8 @@ public class Hooks {
 				capabilities.setCapability("safaridriverExecutable",
 						projectPath + "\\src\\test\\resources\\drivers\\selenium-safari-driver-2.29.1.jar");
 			} else {
-				appDir = new File("src");
-				app = new File(appDir, "UICatalog.app");
-				capabilities.setCapability(MobileCapabilityType.APP, app.getAbsolutePath());
+
+				capabilities.setCapability(MobileCapabilityType.APP, projectPath + "\\src\\UICatalog.app");
 			}
 			driver = new IOSDriver<IOSElement>(new URL("http://127.0.0.1:4723/wd/hub"), capabilities);
 		}
@@ -109,11 +107,15 @@ public class Hooks {
 		world.context.put("driver", driver);
 	}
 
-	@After
+	// @After
 	public void doCleanupAfterExecution(Scenario scenario) {
 		if (map.get("DeviceOS").equalsIgnoreCase("Android")) {
 			if (map.get("Executeon").equalsIgnoreCase("browser")) {
-				driver = (AndroidDriver<WebElement>) driver;
+				driver = (AndroidDriver<?>) driver;
+			}
+		} else {
+			if (map.get("Executeon").equalsIgnoreCase("browser")) {
+				driver = (IOSDriver<?>) driver;
 			}
 		}
 
@@ -123,16 +125,11 @@ public class Hooks {
 			scenario.embed(screenshot, "image/png");
 			// scenario.write("URL: " + driver.getCurrentUrl());
 		}
-		if (map.get("DeviceOS").equalsIgnoreCase("Android")) {
-			if (map.get("Executeon").equalsIgnoreCase("browser")) {
-				driver.close();
-			} else {
-				driver.closeApp();
-			}
+
+		if (map.get("Executeon").equalsIgnoreCase("browser")) {
+			driver.close();
 		} else {
 			driver.closeApp();
 		}
-
 	}
-
 }
