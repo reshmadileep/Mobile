@@ -20,12 +20,11 @@ public class IOSSwitchesScreen {
 	}
 
 	@FindBy(xpath = "//XCUIElementTypeSwitch")
-	public List<WebElement> tinted;
+	public WebElement tinted;
 	
-	public IOSSwitchesScreen toggletinted() {
-		if(tinted.size()>0) {
-		tinted.get(0).click();
-		}
+	public IOSSwitchesScreen toggletinted() throws InterruptedException {
+		tinted.click();
+		Thread.sleep(2000);
 		return this;
 	}
 

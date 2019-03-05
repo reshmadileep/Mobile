@@ -24,7 +24,7 @@ public class IOSUICatalogScreen {
 	}
 	
 	@FindBy(xpath = "//XCUIElementTypeStaticText[@name='Alert Views']")
-	public WebElement alertviews;
+	private WebElement alertviews;
 	
 	@FindBy(xpath = "//XCUIElementTypeStaticText[@name='Switches']")
 	private List<WebElement> switches;
@@ -36,17 +36,10 @@ public class IOSUICatalogScreen {
 	}
 	
 	public IOSUICatalogScreen clickswitches() {
-	
-		for (int i=0;switches.size() == 0;i++) {
-			rfunctions.scrollDownapp();
-			if(i==7) {
-				break;
-			}
-		}
-		if (switches.size() > 0) {
+			rfunctions.scrollDownapp();		
 			switches.get(0).click();
-		}
 		return this;
 	}
 
 }
+
