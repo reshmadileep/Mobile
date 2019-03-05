@@ -4,7 +4,9 @@ package pages;
 import java.util.HashMap;
 
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindAll;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.FindBys;
 import org.openqa.selenium.support.PageFactory;
 
 import io.appium.java_client.AppiumDriver;
@@ -13,13 +15,25 @@ import stepDefinitions.World;
 
 public class HomePage {
 
-	@FindBy(xpath = "//*[@id='txtUsername'] OR //*[@id='credentials.j_username']")
+	@FindAll
+	({
+		@FindBy(id="txtUsername"),
+		@FindBy(id="credentials.j_username")
+	})
 	private WebElement txtUserName;
 
-	@FindBy(xpath = "//*[@id ='txtPassword'] OR //*[@id='credentials.j_password']")
+	@FindAll
+	({
+		@FindBy(id="txtPassword"),
+		@FindBy(id="credentials.j_password")
+	})
 	private WebElement txtPassword;
 
-	@FindBy(xpath = "//*[@id ='btnLogin'] OR //button[contains(@text(),'Log in']")
+	@FindAll
+	({
+		@FindBy(id="btnLogin"),
+		@FindBy(xpath="//button[@class='btn btn-primary pull-right']")
+	})
 	private WebElement btnLogin;
 
 	@FindBy(id = "dashboardTab")
