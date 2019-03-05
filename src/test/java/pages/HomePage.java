@@ -6,7 +6,6 @@ import java.util.HashMap;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindAll;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.FindBys;
 import org.openqa.selenium.support.PageFactory;
 
 import io.appium.java_client.AppiumDriver;
@@ -15,25 +14,13 @@ import stepDefinitions.World;
 
 public class HomePage {
 
-	@FindAll
-	({
-		@FindBy(id="txtUsername"),
-		@FindBy(id="credentials.j_username")
-	})
+	@FindAll({ @FindBy(id = "txtUsername"), @FindBy(id = "credentials.j_username") })
 	private WebElement txtUserName;
 
-	@FindAll
-	({
-		@FindBy(id="txtPassword"),
-		@FindBy(id="credentials.j_password")
-	})
+	@FindAll({ @FindBy(id = "txtPassword"), @FindBy(id = "credentials.j_password") })
 	private WebElement txtPassword;
 
-	@FindAll
-	({
-		@FindBy(id="btnLogin"),
-		@FindBy(xpath="//button[@class='btn btn-primary pull-right']")
-	})
+	@FindAll({ @FindBy(id = "btnLogin"), @FindBy(xpath = "//button[@class='btn btn-primary pull-right']") })
 	private WebElement btnLogin;
 
 	@FindBy(id = "dashboardTab")
@@ -79,11 +66,10 @@ public class HomePage {
 
 	public HomePage verifyLogin() {
 
-		if (dashboardTab.isDisplayed())
-			System.out.println("Logged in Successfully");
-		else
-			System.out.println("Login Unsuccessful ");
-
+		/*
+		 * if (dashboardTab.isDisplayed()) System.out.println("Logged in Successfully");
+		 * else System.out.println("Login Unsuccessful ");
+		 */
 		return this;
 
 	}
