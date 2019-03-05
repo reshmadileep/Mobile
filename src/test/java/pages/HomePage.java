@@ -7,6 +7,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
+import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.AndroidElement;
 import io.appium.java_client.pagefactory.AppiumFieldDecorator;
@@ -15,10 +16,10 @@ import stepDefinitions.World;
 public class HomePage {
 
 	@FindBy(id = "txtUsername")
-	private AndroidElement txtUserName;
+	private WebElement txtUserName;
 
 	@FindBy(id = "txtPassword")
-	private AndroidElement txtPassword;
+	private WebElement txtPassword;
 
 	@FindBy(id = "btnLogin")
 	private WebElement btnLogin;
@@ -26,14 +27,14 @@ public class HomePage {
 	@FindBy(id = "dashboardTab")
 	private WebElement dashboardTab;
 
-	private AndroidDriver<?> driver;
+	private AppiumDriver<?> driver;
 	private World world;
 	private HashMap<String, String> map;
 
 	@SuppressWarnings("unchecked")
 	public HomePage(World world) {
 		this.world = world;
-		driver = (AndroidDriver<?>) this.world.context.get("driver");
+		driver = (AppiumDriver<?>) this.world.context.get("driver");
 		PageFactory.initElements(new AppiumFieldDecorator(driver), this);
 		map = (HashMap<String, String>) world.context.get("config");
 	}
