@@ -13,7 +13,6 @@ import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.Augmenter;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
@@ -96,8 +95,6 @@ public class Hooks {
 			}
 			if (map.get("Executeon").equalsIgnoreCase("browser")) {
 				capabilities.setCapability(MobileCapabilityType.BROWSER_NAME, "Safari");
-				capabilities.setCapability("safaridriverExecutable",
-						projectPath + "\\src\\test\\resources\\drivers\\selenium-safari-driver-2.29.1.jar");
 			} else {
 				appDir = new File("src");
 				app = new File(appDir, "UICatalog.app");
@@ -137,4 +134,3 @@ public class Hooks {
 		}
 	}
 }
-
