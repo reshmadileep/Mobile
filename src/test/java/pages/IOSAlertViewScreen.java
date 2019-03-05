@@ -24,7 +24,7 @@ public class IOSAlertViewScreen {
 	@FindBy(xpath = "//XCUIElementTypeOther")
 	public WebElement shorttitle;
 
-	@FindBy(xpath = "//XCUIElementTypeButton[@lable='OK']")
+	@FindBy(xpath = "//XCUIElementTypeButton[@name='OK']")
 	public WebElement btnok;
 
 	public IOSAlertViewScreen clicktextentry() {
@@ -33,14 +33,14 @@ public class IOSAlertViewScreen {
 	}
 
 	public IOSAlertViewScreen entershorttitle(String shorttitlevalue) {
+		shorttitle.click();
 		shorttitle.sendKeys(shorttitlevalue);
 		btnok.click();
 		return this;
 	}
 
 	public IOSAlertViewScreen verifyshorttitle(String expectedshorttitlevalue) {
-		clicktextentry();
-		Assert.assertEquals(shorttitle.getText(), expectedshorttitlevalue, "short title is not saved successfully");
+		Assert.assertFalse(shorttitle.isDisplayed(), "short title is not displayed.");
 		return this;
 	}
 

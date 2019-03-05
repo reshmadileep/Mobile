@@ -32,36 +32,18 @@ public class ReusableFunctions {
 		taction = new TouchAction(driver2);
 	}
 
-	public void input(WebElement element, String value) {
-		element.clear();
-		element.sendKeys(value);
-	}
-
-	public String gettext(WebElement element) {
-		return element.getText();
-	}
-
-	public Boolean iselementselected(WebElement element) {
-		try {
-			element.isSelected();
-			return true;
-		} catch (Exception e) {
-			return false;
-		}
-
-	}
-
 	public void selectfromdropdownbyindex(WebElement element, int value) {
 		Select dropdownlist = new Select(element);
 		dropdownlist.selectByIndex(value);
 	}
 
+	
 	public void selectfromdropdownbyvisibletext(WebElement element, String s) {
-
 		Select dropdownlist = new Select(element);
 		dropdownlist.selectByVisibleText(s);
 	}
 
+	
 	public void verifytext(WebElement element, String expectedvalue) {
 		try {
 			Assert.assertEquals(element.getText(), expectedvalue, "Page title is not a Match.");
@@ -77,16 +59,19 @@ public class ReusableFunctions {
 	public void tapelement(WebElement welement) {
 		taction.tap(tapOptions().withElement(element(welement))).perform();
 	}
+	
 
 	public void longpress(WebElement welement) {
 		taction.longPress(longPressOptions().withElement(element(welement)).withDuration(ofSeconds(2))).release()
 				.perform();
 	}
+	
 
 	public void swipe(WebElement first, WebElement second) {
 		taction.longPress(longPressOptions().withElement(element(first)).withDuration(ofSeconds(2)))
 				.moveTo(element(second)).release().perform();
 	}
+	
 
 	public void scrollDownapp() {
 		Dimension size = driver.manage().window().getSize();
@@ -101,18 +86,20 @@ public class ReusableFunctions {
 				.waitAction(WaitOptions.waitOptions(Duration.ofSeconds(1))).moveTo(PointOption.point(0, scrollend))
 				.release().perform();
 	}
+	
 
 	public void draganddrop(WebElement source, WebElement destination) {
 		taction.longPress(element(source)).moveTo(element(destination)).release().perform();
 	}
+	
 
 	@SuppressWarnings("unchecked")
 	public void clickmobilebackbutton() {
 		((AndroidDriver<WebElement>) driver).pressKey(new KeyEvent(AndroidKey.BACK));
 	}
+	
 
 	public void scrollDownBrowser() {
-
 		JavascriptExecutor jse = (JavascriptExecutor) driver;
 		jse.executeScript("window.scrollBy(0.480)", "");
 
