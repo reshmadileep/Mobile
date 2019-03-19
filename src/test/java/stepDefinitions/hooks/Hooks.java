@@ -13,11 +13,11 @@ import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.Augmenter;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
 import cucumber.api.Scenario;
+import cucumber.api.java.After;
 import cucumber.api.java.Before;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.android.AndroidDriver;
@@ -25,6 +25,7 @@ import io.appium.java_client.ios.IOSDriver;
 import io.appium.java_client.ios.IOSElement;
 import io.appium.java_client.remote.AutomationName;
 import io.appium.java_client.remote.MobileCapabilityType;
+import io.appium.java_client.service.local.AppiumDriverLocalService;
 import stepDefinitions.World;
 
 public class Hooks {
@@ -34,6 +35,7 @@ public class Hooks {
 	private AppiumDriver<?> driver;
 	DesiredCapabilities capabilities;
 	HashMap<String, String> map;
+	AppiumDriverLocalService service = AppiumDriverLocalService.buildDefaultService();
 
 	public Hooks(World world) {
 		this.world = world;
@@ -49,6 +51,16 @@ public class Hooks {
 		capabilities = new DesiredCapabilities();
 		properties = new Properties();
 		String projectPath = System.getProperty("user.dir");
+
+		try {
+			service.stop();
+			Thread.sleep(500);
+			service.start();
+			Thread.sleep(500);
+		} catch (InterruptedException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 
 		try {
 			properties.load(new FileInputStream(new File("./src/test/resources/config/global.properties")));
@@ -83,10 +95,11 @@ public class Hooks {
 				app = new File(appDir, "ApiDemos-debug.apk");
 				capabilities.setCapability(MobileCapabilityType.APP, app.getAbsolutePath());
 			}
-			driver = new AndroidDriver<WebElement>(new URL("http://127.0.0.1:4723/wd/hub"), capabilities);
+			driver = new AndroidDriver<>(new URL("http://127.0.0.1:4723/wd/hub"), capabilities);
 		} else {
 			capabilities.setCapability(MobileCapabilityType.PLATFORM_NAME, "IOS");
-			capabilities.setCapability(MobileCapabilityType.DEVICE_NAME, "iPhone 6");
+			capabilities.setCapability(MobileCapabilityType.PLATFORM_VERSION, "12.1");
+			capabilities.setCapability(MobileCapabilityType.DEVICE_NAME, "iPhone XS");
 			capabilities.setCapability(MobileCapabilityType.AUTOMATION_NAME, AutomationName.IOS_XCUI_TEST);
 
 			if (map.get("Emulator").equalsIgnoreCase("NO")) {
@@ -94,11 +107,10 @@ public class Hooks {
 			}
 			if (map.get("Executeon").equalsIgnoreCase("browser")) {
 				capabilities.setCapability(MobileCapabilityType.BROWSER_NAME, "Safari");
-				capabilities.setCapability("safaridriverExecutable",
-						projectPath + "\\src\\test\\resources\\drivers\\selenium-safari-driver-2.29.1.jar");
 			} else {
-
-				capabilities.setCapability(MobileCapabilityType.APP, projectPath + "\\src\\UICatalog.app");
+				appDir = new File("src");
+				app = new File(appDir, "UICatalog.app");
+				capabilities.setCapability(MobileCapabilityType.APP, app.getAbsolutePath());
 			}
 			driver = new IOSDriver<IOSElement>(new URL("http://127.0.0.1:4723/wd/hub"), capabilities);
 		}
@@ -107,7 +119,8 @@ public class Hooks {
 		world.context.put("driver", driver);
 	}
 
-	// @After
+	@After
+	@SuppressWarnings("unchecked")
 	public void doCleanupAfterExecution(Scenario scenario) {
 		if (map.get("DeviceOS").equalsIgnoreCase("Android")) {
 			if (map.get("Executeon").equalsIgnoreCase("browser")) {
@@ -115,7 +128,7 @@ public class Hooks {
 			}
 		} else {
 			if (map.get("Executeon").equalsIgnoreCase("browser")) {
-				driver = (IOSDriver<?>) driver;
+				driver = (IOSDriver<IOSElement>) driver;
 			}
 		}
 
@@ -131,5 +144,7 @@ public class Hooks {
 		} else {
 			driver.closeApp();
 		}
+
+		service.stop();
 	}
 }

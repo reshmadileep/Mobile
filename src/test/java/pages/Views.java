@@ -3,6 +3,7 @@ package pages;
 import java.util.List;
 
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 import io.appium.java_client.AppiumDriver;
@@ -12,10 +13,10 @@ import utils.ReusableFunctions;
 
 public class Views {
 
-	@AndroidFindBy(xpath = "//android.widget.TextView[@text='Expandable Lists']")
+	@FindBy(xpath = "//android.widget.TextView[@text='Expandable Lists']")
 	private WebElement expandablelists;
 
-	@AndroidFindBy(xpath = "//android.widget.TextView[@content-desc='WebView']")
+	@FindBy(xpath = "//android.widget.TextView[@content-desc='WebView']")
 	private List<WebElement> webviews;
 
 	private AppiumDriver<?> driver;

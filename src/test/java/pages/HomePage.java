@@ -4,36 +4,36 @@ package pages;
 import java.util.HashMap;
 
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindAll;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-import io.appium.java_client.android.AndroidDriver;
-import io.appium.java_client.android.AndroidElement;
+import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.pagefactory.AppiumFieldDecorator;
 import stepDefinitions.World;
 
 public class HomePage {
 
-	@FindBy(id = "txtUsername")
-	private AndroidElement txtUserName;
+	@FindAll({ @FindBy(id = "txtUsername"), @FindBy(id = "credentials.j_username") })
+	private WebElement txtUserName;
 
-	@FindBy(id = "txtPassword")
-	private AndroidElement txtPassword;
+	@FindAll({ @FindBy(id = "txtPassword"), @FindBy(id = "credentials.j_password") })
+	private WebElement txtPassword;
 
-	@FindBy(id = "btnLogin")
+	@FindAll({ @FindBy(id = "btnLogin"), @FindBy(xpath = "//button[@class='btn btn-primary pull-right']") })
 	private WebElement btnLogin;
 
 	@FindBy(id = "dashboardTab")
 	private WebElement dashboardTab;
 
-	private AndroidDriver<?> driver;
+	private AppiumDriver<?> driver;
 	private World world;
 	private HashMap<String, String> map;
 
 	@SuppressWarnings("unchecked")
 	public HomePage(World world) {
 		this.world = world;
-		driver = (AndroidDriver<?>) this.world.context.get("driver");
+		driver = (AppiumDriver<?>) this.world.context.get("driver");
 		PageFactory.initElements(new AppiumFieldDecorator(driver), this);
 		map = (HashMap<String, String>) world.context.get("config");
 	}
@@ -66,11 +66,10 @@ public class HomePage {
 
 	public HomePage verifyLogin() {
 
-		if (dashboardTab.isDisplayed())
-			System.out.println("Logged in Successfully");
-		else
-			System.out.println("Login Unsuccessful ");
-
+		/*
+		 * if (dashboardTab.isDisplayed()) System.out.println("Logged in Successfully");
+		 * else System.out.println("Login Unsuccessful ");
+		 */
 		return this;
 
 	}

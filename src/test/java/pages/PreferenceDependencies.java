@@ -3,6 +3,7 @@ package pages;
 
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
+import org.testng.Assert;
 
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.pagefactory.AndroidFindBy;
@@ -47,11 +48,7 @@ public class PreferenceDependencies {
 	}
 
 	public PreferenceDependencies verifyWifiSetting(String value) {
-
-		if (wifieditbox.getText().equals(value))
-			System.out.println("Wifi Setting saved successfully");
-		else
-			System.out.println("Wifi Setting is not saved");
+		Assert.assertEquals(wifieditbox.getText(), value, "Wifi Setting is not saved");
 		return this;
 	}
 
