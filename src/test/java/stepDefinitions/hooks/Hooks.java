@@ -25,6 +25,7 @@ import io.appium.java_client.ios.IOSDriver;
 import io.appium.java_client.ios.IOSElement;
 import io.appium.java_client.remote.AutomationName;
 import io.appium.java_client.remote.MobileCapabilityType;
+import io.appium.java_client.service.local.AppiumDriverLocalService;
 import stepDefinitions.World;
 
 public class Hooks {
@@ -34,6 +35,7 @@ public class Hooks {
 	private AppiumDriver<?> driver;
 	DesiredCapabilities capabilities;
 	HashMap<String, String> map;
+	AppiumDriverLocalService service = AppiumDriverLocalService.buildDefaultService();
 
 	public Hooks(World world) {
 		this.world = world;
@@ -49,6 +51,16 @@ public class Hooks {
 		capabilities = new DesiredCapabilities();
 		properties = new Properties();
 		String projectPath = System.getProperty("user.dir");
+
+		try {
+			service.stop();
+			Thread.sleep(500);
+			service.start();
+			Thread.sleep(500);
+		} catch (InterruptedException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 
 		try {
 			properties.load(new FileInputStream(new File("./src/test/resources/config/global.properties")));
@@ -132,5 +144,7 @@ public class Hooks {
 		} else {
 			driver.closeApp();
 		}
+
+		service.stop();
 	}
 }
